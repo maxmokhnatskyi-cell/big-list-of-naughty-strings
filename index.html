@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Issue Card Prototype</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header>
+        <h1>Issue Card Prototype</h1>
+      </header>
+      
+      <main>
+        <button id="openModalBtn" class="primary-btn">Issue Card</button>
+        
+        <!-- Rive Animation Container -->
+        <div id="rive-container">
+          <canvas id="rive-canvas"></canvas>
+        </div>
+      </main>
+
+      <!-- Modal -->
+      <div id="modal" class="modal">
+        <div class="modal-content">
+          <!-- Step 1: Card Type Selection -->
+          <div id="modal-step-1" class="modal-step active">
+            <div class="modal-header">
+              <h2 id="modal-title">Select card type</h2>
+              <button class="close-btn" aria-label="Close">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6 6L18 18M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </button>
+            </div>
+            
+            <div class="modal-body">
+              <div class="card-flip">
+                <canvas id="card-flip-canvas"></canvas>
+              </div>
+              
+              <div class="card-type-select">
+                <button type="button" class="card-type-option selected" data-type="physical">
+                  <img src="/icon-credit-card.svg" alt="" class="option-icon" />
+                  <span>Physical</span>
+                </button>
+                
+                <button type="button" class="card-type-option" data-type="virtual">
+                  <img src="/icon-world.svg" alt="" class="option-icon" />
+                  <span>Virtual</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="continue-btn">Continue</button>
+            </div>
+          </div>
+
+          <!-- Step 2: Issue Card Form -->
+          <div id="modal-step-2" class="modal-step">
+            <div class="modal-header">
+              <h2 id="modal-title-2">Issue a new physical card</h2>
+              <button class="close-btn" aria-label="Close">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6 6L18 18M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </button>
+            </div>
+
+            <div class="modal-body form-body">
+              <form id="issue-card-form">
+                <div class="form-field">
+                  <label for="card-name">Card name</label>
+                  <input type="text" id="card-name" placeholder="What this card will be used for?" />
+                </div>
+
+                <div class="form-field">
+                  <label for="issue-for">Issue for</label>
+                  <div class="custom-select" id="issue-for-select">
+                    <div class="select-trigger">
+                      <span class="select-value placeholder">Select employee...</span>
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6 9L12 15L18 9" stroke="#171717" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </div>
+                    <div class="select-dropdown">
+                      <div class="select-search">
+                        <input type="text" placeholder="Search employee..." id="employee-search" />
+                      </div>
+                      <div class="select-options" id="employee-options">
+                        <div class="select-option" data-value="sarah.johnson@company.com">Sarah Johnson</div>
+                        <div class="select-option" data-value="michael.chen@company.com">Michael Chen</div>
+                        <div class="select-option" data-value="emily.rodriguez@company.com">Emily Rodriguez</div>
+                        <div class="select-option" data-value="james.williams@company.com">James Williams</div>
+                        <div class="select-option" data-value="olivia.brown@company.com">Olivia Brown</div>
+                        <div class="select-option" data-value="david.garcia@company.com">David Garcia</div>
+                        <div class="select-option" data-value="sophia.martinez@company.com">Sophia Martinez</div>
+                        <div class="select-option" data-value="daniel.anderson@company.com">Daniel Anderson</div>
+                        <div class="select-option" data-value="ava.taylor@company.com">Ava Taylor</div>
+                        <div class="select-option" data-value="robert.thomas@company.com">Robert Thomas</div>
+                        <div class="select-option" data-value="mia.jackson@company.com">Mia Jackson</div>
+                        <div class="select-option" data-value="william.white@company.com">William White</div>
+                        <div class="select-option" data-value="isabella.harris@company.com">Isabella Harris</div>
+                        <div class="select-option" data-value="john.martin@company.com">John Martin</div>
+                        <div class="select-option" data-value="emma.thompson@company.com">Emma Thompson</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-field">
+                    <label for="amount">Amount</label>
+                    <input type="text" id="amount" value="$0.00" />
+                  </div>
+
+                  <div class="form-field">
+                    <label for="limit-type">Limit type</label>
+                    <div class="custom-select" id="limit-type-select">
+                      <div class="select-trigger">
+                        <span class="select-value">Daily</span>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M6 9L12 15L18 9" stroke="#171717" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </div>
+                      <div class="select-dropdown">
+                        <div class="select-options" id="limit-type-options">
+                          <div class="select-option selected" data-value="daily">
+                            <div class="option-title">Daily</div>
+                            <div class="option-subtitle">Spend up to the set amount each day. The limit resets every 24 hours, starting at midnight UTC.</div>
+                          </div>
+                          <div class="select-option" data-value="weekly">
+                            <div class="option-title">Weekly</div>
+                            <div class="option-subtitle">Spend up to the set amount each week. The limit resets every Sunday at midnight UTC.</div>
+                          </div>
+                          <div class="select-option" data-value="monthly">
+                            <div class="option-title">Monthly</div>
+                            <div class="option-subtitle">Spend up to the set amount each month. The limit resets on the 1st of each month at midnight UTC.</div>
+                          </div>
+                          <div class="select-option" data-value="lifetime">
+                            <div class="option-title">Lifetime</div>
+                            <div class="option-subtitle">Spend up to the set amount only once. The limit doesn't reset.</div>
+                          </div>
+                          <div class="select-option" data-value="exact">
+                            <div class="option-title">Exact amount</div>
+                            <div class="option-subtitle">Make a single transaction for the exact amount</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="section">
+                  <h3>Ship card to</h3>
+                  <div class="segment-control">
+                    <button type="button" class="segment-btn active" data-address="business">Business address</button>
+                    <button type="button" class="segment-btn" data-address="office">Office</button>
+                    <button type="button" class="segment-btn" data-address="personal">Personal address</button>
+                  </div>
+
+                  <div class="form-field">
+                    <div class="custom-select" id="address-select">
+                      <div class="select-trigger">
+                        <span class="select-value">123 Business Plaza, Suite 400, New York, NY 10013</span>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M6 9L12 15L18 9" stroke="#171717" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </div>
+                      <div class="select-dropdown">
+                        <div class="select-options" id="address-options">
+                          <!-- Options will be populated dynamically -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="section">
+                  <h3>Advanced</h3>
+                  <div class="toggle-row">
+                    <div class="toggle-info">
+                      <div class="toggle-title">Set categories limits</div>
+                      <div class="toggle-description">Choose which categories this card can use.</div>
+                    </div>
+                    <label class="toggle">
+                      <input type="checkbox" id="categories-limits" />
+                      <span class="toggle-slider"></span>
+                    </label>
+                  </div>
+
+                  <!-- Categories Content (hidden by default) -->
+                  <div class="categories-content" id="categories-content">
+                    <div class="radio-group">
+                      <label class="radio-option">
+                        <input type="radio" name="category-mode" value="allow" checked />
+                        <div class="radio-content">
+                          <div class="radio-title">Allow selected categories only</div>
+                          <div class="radio-description">Declines any spend outside your approved categories</div>
+                        </div>
+                      </label>
+
+                      <label class="radio-option">
+                        <input type="radio" name="category-mode" value="block" />
+                        <div class="radio-content">
+                          <div class="radio-title">Block selected categories</div>
+                          <div class="radio-description">Declines any spend in your blocked categories</div>
+                        </div>
+                      </label>
+                    </div>
+
+                    <div class="categories-select-section">
+                      <h4 id="categories-select-title">Select allowed categories</h4>
+                      <div class="custom-select multiselect" id="categories-select">
+                        <div class="select-trigger">
+                          <span class="select-value placeholder">Placeholder</span>
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 9L12 15L18 9" stroke="#171717" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                        </div>
+                        <div class="select-dropdown">
+                          <div class="select-options" id="categories-options">
+                            <div class="select-option checkbox-option" data-value="travel">
+                              <input type="checkbox" id="cat-travel" />
+                              <label for="cat-travel">Travel & Transportation</label>
+                            </div>
+                            <div class="select-option checkbox-option" data-value="food">
+                              <input type="checkbox" id="cat-food" />
+                              <label for="cat-food">Food & Dining</label>
+                            </div>
+                            <div class="select-option checkbox-option" data-value="software">
+                              <input type="checkbox" id="cat-software" />
+                              <label for="cat-software">Software & Subscriptions</label>
+                            </div>
+                            <div class="select-option checkbox-option" data-value="office">
+                              <input type="checkbox" id="cat-office" />
+                              <label for="cat-office">Office Supplies</label>
+                            </div>
+                            <div class="select-option checkbox-option" data-value="marketing">
+                              <input type="checkbox" id="cat-marketing" />
+                              <label for="cat-marketing">Marketing & Advertising</label>
+                            </div>
+                            <div class="select-option checkbox-option" data-value="utilities">
+                              <input type="checkbox" id="cat-utilities" />
+                              <label for="cat-utilities">Utilities & Services</label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="toggle-row">
+                    <div class="toggle-info">
+                      <div class="toggle-title">Assign GL categories</div>
+                      <div class="toggle-description">Choose which GL categories this card can use.</div>
+                    </div>
+                    <label class="toggle">
+                      <input type="checkbox" id="gl-categories" />
+                      <span class="toggle-slider"></span>
+                    </label>
+                  </div>
+
+                  <!-- GL Categories Content (hidden by default) -->
+                  <div class="categories-content" id="gl-categories-content">
+                    <div class="gl-select-section">
+                      <h4>GL categories</h4>
+                      <div class="custom-select multiselect" id="gl-categories-select">
+                        <div class="select-trigger">
+                          <span class="select-value placeholder">Select categories</span>
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 9L12 15L18 9" stroke="#171717" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                        </div>
+                        <div class="select-dropdown">
+                          <div class="select-options" id="gl-categories-options">
+                            <div class="select-option checkbox-option" data-value="1000">
+                              <input type="checkbox" id="gl-1000" />
+                              <label for="gl-1000">1000 - Cash & Cash Equivalents</label>
+                            </div>
+                            <div class="select-option checkbox-option" data-value="2000">
+                              <input type="checkbox" id="gl-2000" />
+                              <label for="gl-2000">2000 - Accounts Payable</label>
+                            </div>
+                            <div class="select-option checkbox-option" data-value="3000">
+                              <input type="checkbox" id="gl-3000" />
+                              <label for="gl-3000">3000 - Equity</label>
+                            </div>
+                            <div class="select-option checkbox-option" data-value="4000">
+                              <input type="checkbox" id="gl-4000" />
+                              <label for="gl-4000">4000 - Revenue</label>
+                            </div>
+                            <div class="select-option checkbox-option" data-value="5000">
+                              <input type="checkbox" id="gl-5000" />
+                              <label for="gl-5000">5000 - Cost of Goods Sold</label>
+                            </div>
+                            <div class="select-option checkbox-option" data-value="6000">
+                              <input type="checkbox" id="gl-6000" />
+                              <label for="gl-6000">6000 - Operating Expenses</label>
+                            </div>
+                            <div class="select-option checkbox-option" data-value="7000">
+                              <input type="checkbox" id="gl-7000" />
+                              <label for="gl-7000">7000 - Other Income</label>
+                            </div>
+                            <div class="select-option checkbox-option" data-value="8000">
+                              <input type="checkbox" id="gl-8000" />
+                              <label for="gl-8000">8000 - Other Expenses</label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="issue-card-btn">Issue card</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
+
